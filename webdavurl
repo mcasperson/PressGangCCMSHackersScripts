@@ -2,13 +2,17 @@
 
 import sys
 
+filename = '/media/pressgang/TOPICS/'
 url='http://skynet.usersys.redhat.com:8080/pressgang-ccms/webdav/TOPICS/'
 
 topicId = sys.argv[1]
 length = len(topicId)
 for i in range(0, length):
 	url = url + topicId[i] + "/"
+	filename = filename + topicId[i] + "/"
 
 url = url + 'TOPIC' + topicId + "/" + topicId + ".xml"
+filename = filename + 'TOPIC' + topicId + "/" + topicId + ".xml"
 
+print(filename)
 print(url)
