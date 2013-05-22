@@ -1,0 +1,14 @@
+#!/usr/bin/python
+
+import sys
+
+url='http://skynet.usersys.redhat.com:8080/pressgang-ccms/webdav/TOPICS/'
+
+topicId = sys.argv[1]
+length = len(topicId)
+for i in range(0, length):
+	url = url + topicId[i] + "/"
+
+url = url + 'TOPIC' + topicId + "/" + topicId + ".xml"
+
+print(url)
