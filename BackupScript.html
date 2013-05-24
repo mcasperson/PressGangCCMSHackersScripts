@@ -6,8 +6,15 @@
   <body>
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
+    	var patt=/(\d+,)*\d+/g;
+    
+    
       function generateBackup() {
         
+      	if (!patt.test($("#contentspecs").val())) {
+      		return;
+      	}
+      
         $('#generate').prop("disabled", true);
         $('#download').prop("disabled", true);
         $('#script').val("");
@@ -52,15 +59,20 @@
       }
       
       function buildBackupAndCopyScript(id) {
-          var filename = id + ".xml"
-          var oldFilename = id + ".xml.old"
+          var filename = id + ".xml";
+          var oldFilename = id + ".xml.old";
+          var backupDir = $('#backupdir').val();
+          
+          if (!backupDir.charAt(backupDir.length - 1) == "/") {
+          	backupDir += "/";
+          }
           
           var script = "# Remove old backup\n"
-          script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+          script += "if [ -f " + backupDir + oldFilename + " ]; then rm -f " + backupDir + oldFilename + "; fi\n"
           script += "# Create a backup\n"
-          script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+          script += "if [ -f " + backupDir + filename + " ]; then mv " + backupDir + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
           script += "# Copy the file\n"
-          script += "curl -o " + $('#backupdir').val() + "/" + id + ".xml http://skynet.usersys.redhat.com/pressgang-ccms/rest/1/topic/get/xml/" + id + "/xml \n\n";    
+          script += "curl -o " + backupDir + id + ".xml http://skynet.usersys.redhat.com/pressgang-ccms/rest/1/topic/get/xml/" + id + "/xml \n\n";    
           
           return script;
       }
