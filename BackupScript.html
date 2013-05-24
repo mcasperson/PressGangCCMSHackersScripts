@@ -8,7 +8,10 @@
     <script>
       function generateBackup() {
         
+        $('#generate').prop("disabled", true);
+        $('#download').prop("disabled", true);
         $('#script').val("");
+        
         
         var url = "http://skynet.usersys.redhat.com:8080/pressgang-ccms/rest/1/topics/get/jsonp/query;topicIncludedInSpec=" +
           $("#contentspecs").val() + 
@@ -37,9 +40,14 @@
                }
                
                $('#script').val(script);
+               
+                $('#generate').prop("disabled", false);
+                $('#download').prop("disabled", false);
             },
             error: function(e) {
                console.log(e.message);
+               $('#generate').prop("disabled", false);
+                $('#download').prop("disabled", false);
             }
         });
           
@@ -56,17 +64,18 @@
       }
       
       function download() {
-        var uriContent = "data:text/plain," + encodeURIComponent($('#script').val());
+        var uriContent = "data:data:application/octet-stream," + encodeURIComponent($('#script').val());
         newWindow=window.open(uriContent, 'neuesDokument');
       }
     </script>
-  
+    <span>Content Spec IDs Comma Separated</span>
     <input type="text" id="contentspecs" value="16778"/>
+    <span>Backup Directory</span>
     <input type="text" id="backupdir" value="/tmp/backup"></input>
-    <button type="button" onclick="generateBackup()">Generate Backup Script</button>
+    <button id="generate" type="button" onclick="generateBackup()">Generate Backup Script</button>
     <br/>
     <textarea readonly="true" id="script" rows="50" cols="150"></textarea>
     <br/>
-    <button type="button" onclick="download()">Download</button>
+    <button id="download" type="button" onclick="download()">Download</button>
   </body>
 </html>
