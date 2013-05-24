@@ -27,7 +27,7 @@
                   
                   script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
                   script += "if [ -f " + $('#backupdir').val() + "/" + filename + "]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
-                  script += "cp " + idToPath(json.items[i].id) + " " + $('#backupdir').val() + "\n";
+                  script += "cp " + idToPath(json.items[i].item.id) + " " + $('#backupdir').val() + "\n";
                }
                
                $('#script').val(script);
