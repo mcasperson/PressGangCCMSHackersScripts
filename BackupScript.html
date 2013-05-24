@@ -29,6 +29,8 @@
                   script += "if [ -f " + $('#backupdir').val() + "/" + filename + "]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
                   script += "cp " + idToPath(json.items[i].id) + " " + $('#backupdir').val() + "\n";
                }
+               
+               $('#script').val(script);
             },
             error: function(e) {
                console.log(e.message);
