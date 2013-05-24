@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <title>PressGang Backup Script Generator</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script>
+      function generateBackup() {
+        var query = "http://skynet.usersys.redhat.com:8080/pressgang-ccms/rest/1/topics/get/jsonp/query;topicIncludedInSpec=" +
+          $("#contentspecs).val() + 
+          "?expand=%7Bbranches%3A%5B%7Btrunk%3A%7B%3Dname%3Atopics%7D%7D%5D%7D&callback=?";
+          
+          $.ajax({
+           type: 'GET',
+            url: url,
+            async: false,
+            jsonpCallback: 'jsonCallback',
+            contentType: "application/json",
+            dataType: 'jsonp',
+            success: function(json) {
+               var script = "";
+               
+               for (int i = 0; i < json.items.length; ++i) {
+                  var filename = json.items[i].id + ".xml"
+                  var oldFilename = json.items[i].id + ".xml.old"
+                  
+                  script += "if [ -f " + $('#backupdir').val() + "\" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "\" + oldFilename + "; fi\n"
+                  script += "if [ -f " + $('#backupdir').val() + "\" + filename + "]; then mv " + $('#backupdir').val() + "\" + filename + " " + $('#backupdir').val() + "\" + oldFilename; fi\n"
+                  script += "cp " + idToPath(json.items[i].id) + " " + $('#backupdir').val() + "\n";
+               }
+            },
+            error: function(e) {
+               console.log(e.message);
+            }
+        });
+          
+      }
+      
+      function idToPath(id) {
+        var path = "/media/pressgang/TOPICS/";
+        for (var i = 0; i < id.length; ++i) {
+          path += id.charAt(i) + "/";
+        }
+        
+        path += "TOPIC" + id + "/" + id + ".xml";
+        return path;
+      }
+    </script>
+  </head>
+  <body>
+    <input type="text" id="contentspecs"/>
+    <input type="text" id="backupdir"/>
+    <button type="button" onclick="generateBackup()">Generate Backup Script</button>
+    <br/>
+    <textarea id="script" rows="4" cols="50"/>
+  </body>
+</html>
