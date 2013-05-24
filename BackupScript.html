@@ -41,8 +41,8 @@
       
       function idToPath(id) {
         var path = "/media/pressgang/TOPICS/";
-        for (var i = 0; i < id.length; ++i) {
-          path += id.charAt(i) + "/";
+        for (var i = 0; i < id.toString().length; ++i) {
+          path += id.toString().charAt(i) + "/";
         }
         
         path += "TOPIC" + id + "/" + id + ".xml";
