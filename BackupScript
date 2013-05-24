@@ -1,0 +1,12 @@
+<html>
+  <head>
+    <title>PressGang Backup Script Generator</title>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+  </head>
+  <body>
+    <input type="text" id="contentspecs">
+    <button type="button">Generate Backup Script</button>
+    <br/>
+    <textarea id="script" rows="4" cols="50"/>
+  </body>
+</html>
