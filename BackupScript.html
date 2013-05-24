@@ -55,7 +55,7 @@
           var filename = id + ".xml"
           var oldFilename = id + ".xml.old"
           
-          var script += "# Remove old backup\n"
+          var script = "# Remove old backup\n"
           script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
           script += "# Create a backup\n"
           script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
