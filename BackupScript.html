@@ -7,6 +7,9 @@
   <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
     <script>
       function generateBackup() {
+        
+        $('#script').val("");
+        
         var url = "http://skynet.usersys.redhat.com:8080/pressgang-ccms/rest/1/topics/get/jsonp/query;topicIncludedInSpec=" +
           $("#contentspecs").val() + 
           "?expand=%7B%22branches%22%3A%5B%7B%22trunk%22%3A%7B%22name%22%3A%22topics%22%7D%7D%5D%7D&callback=?";
@@ -25,8 +28,8 @@
                   var filename = json.items[i].item.id + ".xml"
                   var oldFilename = json.items[i].item.id + ".xml.old"
                   
-                  script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
-                  script += "if [ -f " + $('#backupdir').val() + "/" + filename + "]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+                  script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+                  script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
                   script += "cp " + idToPath(json.items[i].item.id) + " " + $('#backupdir').val() + "\n";
                }
                
