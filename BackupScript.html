@@ -12,6 +12,12 @@
       function generateBackup() {
         
       	if (!patt.test($("#contentspecs").val())) {
+      		alert("Content Specs must be listed as comma separated values");
+      		return;
+      	}
+      	
+      	if ($.trim($('#backupdir').val()).length == 0) {
+      		alert("You must enter a backup location");
       		return;
       	}
       
