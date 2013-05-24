@@ -27,30 +27,42 @@
             success: function(json) {
                var script = "";
                
-               for (var i = 0; i < json.items.length; ++i) {
-                  var filename = json.items[i].item.id + ".xml"
-                  var oldFilename = json.items[i].item.id + ".xml.old"
-                  
-                  script += "# Remove old backup\n"
-                  script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
-                  script += "# Create a backup\n"
-                  script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
-                  script += "# Copy the file\n"
-                  script += "cp " + idToPath(json.items[i].item.id) + " " + $('#backupdir').val() + "\n\n";
-               }
+               for (var i = 0; i < json.items.length; ++i) {                                
+                  script += buildBackupAndCopyScript(json.items[i].item.id);
+                }
+                
+                var cspIds = $("#contentspecs").val().split(",");
+                
+                for (i = 0; i < cspIds.length; ++i) {
+                  script += buildBackupAndCopyScript(cspIds[i]);  
+                }
                
-               $('#script').val(script);
+                $('#script').val(script);
                
                 $('#generate').prop("disabled", false);
                 $('#download').prop("disabled", false);
             },
             error: function(e) {
-               console.log(e.message);
-               $('#generate').prop("disabled", false);
+                console.log(e.message);
+                $('#generate').prop("disabled", false);
                 $('#download').prop("disabled", false);
             }
         });
           
+      }
+      
+      function buildBackupAndCopyScript(id) {
+          var filename = id + ".xml"
+          var oldFilename = id + ".xml.old"
+          
+          var script += "# Remove old backup\n"
+          script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+          script += "# Create a backup\n"
+          script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+          script += "# Copy the file\n"
+          script += "cp " + idToPath(id) + " " + $('#backupdir').val() + "\n\n";    
+          
+          return script;
       }
       
       function idToPath(id) {
