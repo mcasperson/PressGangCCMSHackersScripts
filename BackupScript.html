@@ -60,7 +60,7 @@
           script += "# Create a backup\n"
           script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
           script += "# Copy the file\n"
-          script += "cp " + idToPath(id) + " " + $('#backupdir').val() + "\n\n";    
+          script += "curl -o " + $('#backupdir').val() + "/" + id + ".xml http://skynet.usersys.redhat.com/pressgang-ccms/rest/1/topic/get/xml/" + id + "/xml \n\n";    
           
           return script;
       }
