@@ -25,8 +25,8 @@
                   var filename = json.items[i].id + ".xml"
                   var oldFilename = json.items[i].id + ".xml.old"
                   
-                  script += "if [ -f " + $('#backupdir').val() + "\" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "\" + oldFilename + "; fi\n"
-                  script += "if [ -f " + $('#backupdir').val() + "\" + filename + "]; then mv " + $('#backupdir').val() + "\" + filename + " " + $('#backupdir').val() + "\" + oldFilename; fi\n"
+                  script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+                  script += "if [ -f " + $('#backupdir').val() + "/" + filename + "]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename; fi\n"
                   script += "cp " + idToPath(json.items[i].id) + " " + $('#backupdir').val() + "\n";
                }
             },
