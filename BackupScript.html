@@ -54,12 +54,19 @@
         path += "TOPIC" + id + "/" + id + ".xml";
         return path;
       }
+      
+      function download() {
+        var uriContent = "data:text/plain," + encodeURIComponent($('#script').val());
+        newWindow=window.open(uriContent, 'neuesDokument');
+      }
     </script>
   
     <input type="text" id="contentspecs" value="16778"/>
     <input type="text" id="backupdir" value="/tmp/backup"></input>
     <button type="button" onclick="generateBackup()">Generate Backup Script</button>
     <br/>
-    <textarea id="script" rows="50" cols="150"></textarea>
+    <textarea readonly="true" id="script" rows="50" cols="150"></textarea>
+    <br/>
+    <button type="button" onclick="download()">Download</button>
   </body>
 </html>
