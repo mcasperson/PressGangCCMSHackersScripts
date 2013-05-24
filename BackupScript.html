@@ -9,7 +9,7 @@
       function generateBackup() {
         var url = "http://skynet.usersys.redhat.com:8080/pressgang-ccms/rest/1/topics/get/jsonp/query;topicIncludedInSpec=" +
           $("#contentspecs").val() + 
-          "?expand=%7Bbranches%3A%5B%7Btrunk%3A%7B%3Dname%3Atopics%7D%7D%5D%7D&callback=?";
+          "?expand=%7Bbranches%3A%5B%7Btrunk%3A%7Bname%3Atopics%7D%7D%5D%7D&callback=?";
           
           $.ajax({
            type: 'GET',
