@@ -28,9 +28,12 @@
                   var filename = json.items[i].item.id + ".xml"
                   var oldFilename = json.items[i].item.id + ".xml.old"
                   
+                  script += "# Remove old backup\n"
                   script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + " ]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
+                  script += "# Create a backup\n"
                   script += "if [ -f " + $('#backupdir').val() + "/" + filename + " ]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
-                  script += "cp " + idToPath(json.items[i].item.id) + " " + $('#backupdir').val() + "\n";
+                  script += "# Copy the file\n"
+                  script += "cp " + idToPath(json.items[i].item.id) + " " + $('#backupdir').val() + "\n\n";
                }
                
                $('#script').val(script);
