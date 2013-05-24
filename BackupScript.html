@@ -22,8 +22,8 @@
                var script = "";
                
                for (var i = 0; i < json.items.length; ++i) {
-                  var filename = json.items[i].id + ".xml"
-                  var oldFilename = json.items[i].id + ".xml.old"
+                  var filename = json.items[i].item.id + ".xml"
+                  var oldFilename = json.items[i].item.id + ".xml.old"
                   
                   script += "if [ -f " + $('#backupdir').val() + "/" + oldFilename + "]; then rm -f " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
                   script += "if [ -f " + $('#backupdir').val() + "/" + filename + "]; then mv " + $('#backupdir').val() + "/" + filename + " " + $('#backupdir').val() + "/" + oldFilename + "; fi\n"
