@@ -21,7 +21,7 @@
             success: function(json) {
                var script = "";
                
-               for (int i = 0; i < json.items.length; ++i) {
+               for (var i = 0; i < json.items.length; ++i) {
                   var filename = json.items[i].id + ".xml"
                   var oldFilename = json.items[i].id + ".xml.old"
                   
